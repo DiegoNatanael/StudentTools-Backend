@@ -328,6 +328,7 @@
 
 <!-- Diagram Renderer scripts -->
 @if($generation->type === 'diagram')
+<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('mermaidOutput');
@@ -335,9 +336,18 @@
             // Apply slight transition/smoothness after SVG generation
             const svg = container.querySelector('svg');
             if (svg) {
-                svg.style.maxWidth = '100%';
-                svg.style.maxHeight = '600px';
-                svg.style.height = 'auto';
+                svg.style.width = '100%';
+                svg.style.height = '600px';
+                
+                // Initialize SVG Pan/Zoom interactivity
+                svgPanZoom(svg, {
+                    zoomEnabled: true,
+                    controlIconsEnabled: true,
+                    fit: true,
+                    center: true,
+                    minZoom: 0.5,
+                    maxZoom: 15
+                });
             }
         }).catch(err => {
             container.innerHTML = '<div style="color: #ef4444;">Error de Renderizado. Edita el código del diagrama para corregirlo.</div>';
