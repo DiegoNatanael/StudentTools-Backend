@@ -81,7 +81,8 @@ def classify_document_scale(topic: str) -> dict:
     try:
         res = nim_architect.generate_chat(
             [{"role": "user", "content": classifier_prompt}],
-            temperature=0.1, max_tokens=100
+            temperature=0.1, max_tokens=100,
+            response_format={"type": "json_object"}
         )
         raw = res['choices'][0]['message']['content'].strip()
         raw = raw.replace("```json", "").replace("```", "").strip()
@@ -456,7 +457,8 @@ def run_presentation_pipeline(topic: str) -> dict:
     try:
         res = nim_architect.generate_chat(
             [{"role": "user", "content": prompt}],
-            temperature=0.5, max_tokens=3000
+            temperature=0.5, max_tokens=3000,
+            response_format={"type": "json_object"}
         )
         raw = res['choices'][0]['message']['content'].strip()
         raw = re.sub(r"```json\n?|```", "", raw).strip()
@@ -465,7 +467,17 @@ def run_presentation_pipeline(topic: str) -> dict:
         last_brace = raw.rfind("}")
         if first_brace != -1 and last_brace != -1:
             raw = raw[first_brace:last_brace + 1]
-        data = json.loads(raw)
+            
+        # Fix trailing commas (common LLM mistake)
+        raw = re.sub(r',\s*([\]}])', r'\1', raw)
+        
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError as jde:
+            print(f"[Presentation Engine] JSON parse error: {jde}. Raw string: {raw}")
+            # If it still fails, try to strip unescaped control chars
+            raw = re.sub(r'[\x00-\x1f]', '', raw)
+            data = json.loads(raw)
         
         # Validate and log slide layout distribution
         layouts = [s.get("layout", "text") for s in data.get("slides", [])]

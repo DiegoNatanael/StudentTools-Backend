@@ -35,7 +35,7 @@ class NIMClient:
         self.model = model
         self.api_key = NVIDIA_API_KEY
 
-    def generate_chat(self, messages, temperature=0.6, max_tokens=1024, fallback_allowed=True, timeout_override=None):
+    def generate_chat(self, messages, temperature=0.6, max_tokens=1024, fallback_allowed=True, timeout_override=None, response_format=None):
         """
         Generate a chat completion via NVIDIA NIM API.
         
@@ -72,6 +72,8 @@ class NIMClient:
                         "top_p": 0.7,
                         "stream": False
                     }
+                    if response_format:
+                        payload["response_format"] = response_format
 
                     # Smart split timeout: (connect_timeout, read_timeout)
                     # - connect_timeout = 10s → fails FAST if server is unreachable
