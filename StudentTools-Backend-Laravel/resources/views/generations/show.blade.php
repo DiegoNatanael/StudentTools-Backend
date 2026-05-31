@@ -282,46 +282,71 @@
 <head>
     <meta charset="UTF-8">
     <title>${{ json_encode($generation->topic) }}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #050505;
             --text-primary: #ffffff;
-            --text-secondary: #888888;
+            --text-secondary: #d4d4d8;
             --accent: #6366f1;
             --card-border: rgba(255, 255, 255, 0.1);
         }
         @page { size: 1200px 900px; margin: 0; }
-        @media print {
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            body, html { width: 100%; height: 100%; margin: 0; padding: 0; background-color: var(--bg-color) !important; }
-            .reveal-viewport { background: var(--bg-color) !important; }
+        
+        body, html { 
+            margin: 0; padding: 0; 
+            background-color: var(--bg-color) !important; 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-primary) !important;
+            width: 100%; height: auto;
         }
-        body, .reveal { background-color: var(--bg-color) !important; font-family: 'Inter', sans-serif; color: var(--text-primary); }
-        .reveal .slides section { display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; height: 100%; }
-        .reveal h1, .reveal h2, .reveal h3 { color: var(--text-primary) !important; margin: 0; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .reveal h1 { font-weight: 600; text-transform: uppercase; font-size: 3.8em !important; letter-spacing: -0.04em; }
-        .reveal h2 { font-weight: 400; text-transform: uppercase; font-size: 2.2em !important; margin-bottom: 20px; }
-        .reveal h3 { font-weight: 300; color: var(--text-secondary) !important; text-transform: uppercase; font-size: 0.85em !important; letter-spacing: 0.5em; margin-bottom: 15px; }
-        .reveal p { color: var(--text-secondary); font-weight: 300; line-height: 1.4; font-size: 1.2em !important; }
-        .divider { width: 60px; height: 3px; background: var(--accent); margin: 30px 0; }
-        blockquote { border-left: 4px solid var(--accent); background: rgba(255,255,255,0.05); padding: 30px; font-style: italic; color: var(--text-primary) !important; font-size: 1.4em !important; text-align: left; }
-        .slide-container { display: flex; align-items: center; justify-content: space-between; gap: 80px; width: 100%; text-align: left; }
-        table { border-collapse: collapse; width: 100%; color: var(--text-secondary); font-size: 0.85em; margin-top: 20px; }
-        th { color: white; border-bottom: 2px solid var(--card-border); padding: 15px; text-transform: uppercase; font-size: 0.7em; text-align: left; }
-        td { padding: 18px 15px; border-bottom: 1px solid var(--card-border); }
-        .slide-bullets { list-style: none; padding: 0; margin: 0; text-align: left; }
-        .slide-bullets li { color: var(--text-secondary); font-weight: 300; font-size: 1.1em; padding: 8px 0; padding-left: 20px; position: relative; }
-        .slide-bullets li::before { content: '▸'; color: var(--accent); position: absolute; left: 0; font-size: 1.1em; }
+
+        /* Slide Layout */
+        .slides { width: 100%; display: flex; flex-direction: column; }
+        section { 
+            width: 100%; height: 900px; 
+            display: flex !important; flex-direction: column !important; 
+            justify-content: center !important; align-items: center !important; 
+            page-break-after: always !important; break-after: page !important;
+            page-break-inside: avoid !important; break-inside: avoid !important;
+            padding: 40px; box-sizing: border-box;
+            position: relative;
+        }
+        
+        /* Typography & Colors (Overriding all print defaults) */
+        h1, h2, h3, p, li, blockquote, th, td { color: var(--text-primary) !important; font-family: 'Outfit', sans-serif; margin: 0; }
+        h1 { font-weight: 800; text-transform: uppercase; font-size: 3.5em !important; letter-spacing: -0.04em; margin-bottom: 20px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        h2 { font-weight: 600; text-transform: uppercase; font-size: 2.2em !important; margin-bottom: 20px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        h3 { font-weight: 400; color: #a1a1aa !important; text-transform: uppercase; font-size: 1.1em !important; letter-spacing: 0.5em; margin-bottom: 15px; }
+        p { color: var(--text-secondary) !important; font-weight: 300; line-height: 1.5; font-size: 1.4em !important; font-family: 'Inter', sans-serif; text-align: center; }
+        
+        .divider { width: 60px; height: 4px; background: var(--accent) !important; margin: 30px 0; border-radius: 2px; }
+        blockquote { border-left: 6px solid var(--accent) !important; background: rgba(255,255,255,0.05) !important; padding: 30px; font-style: italic; font-size: 1.6em !important; text-align: left; border-radius: 0 12px 12px 0; }
+        
+        /* Layouts */
+        .slide-container { display: flex; align-items: center; justify-content: space-between; gap: 80px; width: 85%; margin: 0 auto; text-align: left; }
+        .col-text { flex: 1; }
+        .center-content { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 80%; }
+        
+        /* Tables & Lists */
+        table { border-collapse: collapse; width: 85%; font-size: 1.1em; margin-top: 30px; font-family: 'Inter', sans-serif; }
+        th { color: white !important; border-bottom: 2px solid rgba(255,255,255,0.2) !important; padding: 20px; text-transform: uppercase; font-size: 0.9em; text-align: left; }
+        td { color: var(--text-secondary) !important; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
+        
+        .slide-bullets { list-style: none; padding: 0; margin: 0; text-align: left; font-family: 'Inter', sans-serif; }
+        .slide-bullets li { color: var(--text-secondary) !important; font-weight: 300; font-size: 1.4em !important; padding: 12px 0; padding-left: 30px; position: relative; line-height: 1.5; }
+        .slide-bullets li::before { content: '▸'; color: var(--accent) !important; position: absolute; left: 0; top: 12px; font-size: 1.2em; }
+
+        @media print {
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+        }
     </style>
 </head>
 <body>
-    <div class="reveal"><div class="slides">${slidesHtml}</div></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"><\/script>
+    <div class="slides">${slidesHtml}</div>
     <script>
-        Reveal.initialize({ controls: false, progress: false, hash: false, center: true, width: 1200, height: 900 });
-        Reveal.on('ready', () => { setTimeout(() => { window.print(); }, 1500); });
+        // No Reveal.js JS needed! Pure CSS rendering guarantees perfect PDF export!
+        setTimeout(() => { window.print(); }, 1000);
     <\/script>
 </body>
 </html>`);
