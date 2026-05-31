@@ -16,6 +16,10 @@
         box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
     
+    .reveal, .reveal-viewport {
+        background: transparent !important;
+    }
+    
     .reveal h1, .reveal h2, .reveal h3 { 
         color: white !important; 
         margin: 0; 
