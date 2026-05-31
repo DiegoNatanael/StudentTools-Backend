@@ -288,6 +288,12 @@
             --accent: #6366f1;
             --card-border: rgba(255, 255, 255, 0.1);
         }
+        @page { size: 1200px 900px; margin: 0; }
+        @media print {
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            body, html { width: 100%; height: 100%; margin: 0; padding: 0; background-color: var(--bg-color) !important; }
+            .reveal-viewport { background: var(--bg-color) !important; }
+        }
         body, .reveal { background-color: var(--bg-color) !important; font-family: 'Inter', sans-serif; color: var(--text-primary); }
         .reveal .slides section { display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; height: 100%; }
         .reveal h1, .reveal h2, .reveal h3 { color: var(--text-primary) !important; margin: 0; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
@@ -311,7 +317,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"><\/script>
     <script>
         Reveal.initialize({ controls: false, progress: false, hash: false, center: true, width: 1200, height: 900 });
-        Reveal.on('ready', () => { setTimeout(() => { window.print(); }, 1000); });
+        Reveal.on('ready', () => { setTimeout(() => { window.print(); }, 1500); });
     <\/script>
 </body>
 </html>`);
@@ -330,6 +336,7 @@
             const svg = container.querySelector('svg');
             if (svg) {
                 svg.style.maxWidth = '100%';
+                svg.style.maxHeight = '600px';
                 svg.style.height = 'auto';
             }
         }).catch(err => {
