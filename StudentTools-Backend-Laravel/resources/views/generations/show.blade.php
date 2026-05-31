@@ -130,9 +130,14 @@
                                     <div class="center-content" style="text-align: center;">
                                         <h3>{{ $slide['section'] ?? 'REFLEXIÓN' }}</h3>
                                         <div class="divider" style="margin: 30px auto;"></div>
-                                        <blockquote style="text-align: center; border-left: none; border-top: 6px solid var(--accent, #6366f1); border-radius: 12px; padding: 40px;">
-                                            {{ $slide['quote'] ?? ($slide['p'] ?? '') }}
-                                        </blockquote>
+                                        @php
+                                            $quoteText = trim($slide['quote'] ?? ($slide['p'] ?? ''));
+                                        @endphp
+                                        @if(!empty($quoteText))
+                                            <blockquote style="text-align: center; border-left: none; border-top: 6px solid var(--accent, #6366f1); border-radius: 12px; padding: 40px;">
+                                                {{ $quoteText }}
+                                            </blockquote>
+                                        @endif
                                         @if(isset($slide['source']))
                                             <div style="margin-top: 20px;">
                                                 <span class="source-link" style="color: #6366f1; text-decoration: none; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">{{ $slide['source'] }}</span>
@@ -280,8 +285,14 @@
     document.getElementById('downloadPdfBtn').addEventListener('click', () => {
         const printWindow = window.open('', '_blank');
         
-        // Assemble slide container content
-        const slidesHtml = document.querySelector('.slides').innerHTML;
+        // Assemble slide container content by cloning and stripping Reveal.js-injected inline styles/classes on sections
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = document.querySelector('.slides').innerHTML;
+        tempDiv.querySelectorAll('section').forEach(sec => {
+            sec.removeAttribute('style');
+            sec.removeAttribute('class');
+        });
+        const slidesHtml = tempDiv.innerHTML;
         
         printWindow.document.write(`<!DOCTYPE html>
 <html lang="es">
@@ -310,12 +321,12 @@
         /* Slide Layout */
         .slides { width: 100%; display: flex; flex-direction: column; }
         section { 
-            width: 100%; height: 900px; 
+            width: 1200px !important; height: 900px !important; 
             display: flex !important; flex-direction: column !important; 
             justify-content: center !important; align-items: center !important; 
             page-break-after: always !important; break-after: page !important;
             page-break-inside: avoid !important; break-inside: avoid !important;
-            padding: 40px; box-sizing: border-box;
+            padding: 80px; box-sizing: border-box;
             position: relative;
         }
         
