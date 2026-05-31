@@ -18,19 +18,23 @@
     
     .reveal, .reveal-viewport {
         background: transparent !important;
+        color: white !important;
     }
     
-    .reveal h1, .reveal h2, .reveal h3 { 
-        color: white !important; 
+    .reveal h1, .reveal h2, .reveal h3, .reveal p, .reveal li, .reveal blockquote { 
         margin: 0; 
-        text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         font-family: 'Outfit', sans-serif;
+    }
+    
+    .reveal h1, .reveal h2 {
+        color: white !important;
+        text-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
     
     .reveal h1 { font-weight: 800; text-transform: uppercase; font-size: 3.5em !important; letter-spacing: -0.04em; line-height: 0.9; }
     .reveal h2 { font-weight: 600; text-transform: uppercase; font-size: 2em !important; margin-bottom: 20px; }
-    .reveal h3 { font-weight: 400; color: #888 !important; text-transform: uppercase; font-size: 0.8em !important; letter-spacing: 0.5em; margin-bottom: 15px; }
-    .reveal p { color: #888; font-weight: 300; line-height: 1.4; font-size: 1.1em !important; }
+    .reveal h3 { font-weight: 400; color: #a1a1aa !important; text-transform: uppercase; font-size: 0.8em !important; letter-spacing: 0.5em; margin-bottom: 15px; }
+    .reveal p { color: #d4d4d8 !important; font-weight: 300; line-height: 1.4; font-size: 1.1em !important; }
 
     .divider { width: 60px; height: 3px; background: #6366f1; margin: 30px 0; }
     
@@ -38,12 +42,12 @@
 
     .slide-container { display: flex; align-items: center; justify-content: space-between; gap: 60px; width: 100%; text-align: left; }
     
-    table { border-collapse: collapse; width: 100%; color: #888; font-size: 0.8em; margin-top: 20px; }
-    th { color: white; border-bottom: 2px solid rgba(255,255,255,0.1); padding: 15px; text-transform: uppercase; font-size: 0.7em; text-align: left; }
-    td { padding: 18px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); line-height: 1.2; }
+    table { border-collapse: collapse; width: 100%; color: #d4d4d8 !important; font-size: 0.8em; margin-top: 20px; }
+    th { color: white !important; border-bottom: 2px solid rgba(255,255,255,0.1); padding: 15px; text-transform: uppercase; font-size: 0.7em; text-align: left; }
+    td { color: #d4d4d8 !important; padding: 18px 15px; border-bottom: 1px solid rgba(255,255,255,0.1); line-height: 1.2; }
 
     .slide-bullets { list-style: none; padding: 0; margin: 0; text-align: left; }
-    .slide-bullets li { color: #888; font-weight: 300; font-size: 1em; padding: 8px 0; padding-left: 20px; position: relative; line-height: 1.4; }
+    .slide-bullets li { color: #d4d4d8 !important; font-weight: 300; font-size: 1.1em !important; padding: 8px 0; padding-left: 20px; position: relative; line-height: 1.4; }
     .slide-bullets li::before { content: '▸'; color: #6366f1; position: absolute; left: 0; font-size: 1em; }
 </style>
 @endif
