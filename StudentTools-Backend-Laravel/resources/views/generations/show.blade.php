@@ -105,10 +105,12 @@
                                 @php $layout = $slide['layout'] ?? 'text'; @endphp
                                 
                                 @if($layout === 'intro')
-                                    <h3>{{ $slide['section'] ?? 'PRESENTACIÓN' }}</h3>
-                                    <div class="divider"></div>
-                                    <h1>{{ $slide['h1'] ?? $generation->topic }}</h1>
-                                    <p>{{ $slide['p'] ?? '' }}</p>
+                                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center; width: 100%;">
+                                        <h3>{{ $slide['section'] ?? 'PRESENTACIÓN' }}</h3>
+                                        <div class="divider" style="margin: 30px auto;"></div>
+                                        <h1 style="text-align: center; width: 100%;">{{ $slide['h1'] ?? $generation->topic }}</h1>
+                                        <p style="text-align: center; max-width: 800px; margin: 0 auto;">{{ $slide['p'] ?? '' }}</p>
+                                    </div>
                                     
                                 @elseif($layout === 'bullets' && isset($slide['bullets']))
                                     <div class="container slide-container">
@@ -125,19 +127,23 @@
                                     </div>
                                     
                                 @elseif($layout === 'quote')
-                                    <div class="center-content">
+                                    <div class="center-content" style="text-align: center;">
                                         <h3>{{ $slide['section'] ?? 'REFLEXIÓN' }}</h3>
-                                        <div class="divider"></div>
-                                        <blockquote>{{ $slide['quote'] ?? '' }}</blockquote>
+                                        <div class="divider" style="margin: 30px auto;"></div>
+                                        <blockquote style="text-align: center; border-left: none; border-top: 6px solid var(--accent, #6366f1); border-radius: 12px; padding: 40px;">
+                                            {{ $slide['quote'] ?? ($slide['p'] ?? '') }}
+                                        </blockquote>
                                         @if(isset($slide['source']))
-                                            <a href="#" class="source-link" style="color: #6366f1; text-decoration: none; font-size: 0.8rem; font-weight: bold; text-transform: uppercase;">{{ $slide['source'] }}</a>
+                                            <div style="margin-top: 20px;">
+                                                <span class="source-link" style="color: #6366f1; text-decoration: none; font-size: 0.9rem; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">{{ $slide['source'] }}</span>
+                                            </div>
                                         @endif
                                     </div>
                                     
                                 @elseif($layout === 'table' && isset($slide['table']))
                                     <h3>{{ $slide['section'] ?? 'DATOS' }}</h3>
-                                    <h2>{{ $slide['h2'] ?? '' }}</h2>
-                                    <div class="divider"></div>
+                                    <h2 style="text-align: center;">{{ $slide['h2'] ?? '' }}</h2>
+                                    <div class="divider" style="margin: 30px auto;"></div>
                                     <table>
                                         <thead>
                                             <tr>
