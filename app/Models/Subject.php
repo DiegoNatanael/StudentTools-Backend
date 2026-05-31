@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['user_id', 'subject_id', 'type', 'topic', 'content'])]
-class Generation extends Model
+#[Fillable(['user_id', 'name', 'color'])]
+class Subject extends Model
 {
     
     public function user()
@@ -15,8 +15,8 @@ class Generation extends Model
     }
 
     
-    public function subject()
+    public function generations()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->hasMany(Generation::class);
     }
 }
