@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Tools V2 | Pro Edition</title>
+    <link rel="icon" type="image/png" href="StudentTools.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons & Mermaiid -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+</head>
+
+<body class="dark-mode">
+    <!-- Animated background -->
+    <div class="bg-vignette"></div>
+    <div class="blob-gradient blob-1"></div>
+    <div class="blob-gradient blob-2"></div>
+    <div class="blob-gradient blob-3"></div>
+
+    <nav class="glass-nav">
+        <div class="nav-content">
+            <div class="logo">
+                <img src="StudentTools.png" alt="Logo">
+                <span>StudentTools</span>
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-section="docs">Documents</button>
+                <button class="nav-btn" data-section="slides">Presentations</button>
+                <button class="nav-btn" data-section="diagrams">Diagrams</button>
+                <button class="nav-btn" data-section="history"><i class="fas fa-clock-rotate-left"></i> History</button>
+            </div>
+            <div class="nav-user">
+                <div id="userInfo" class="user-info hidden">
+                    <span id="quotaBadge" class="quota-badge">5</span>
+                    <span id="userName" class="user-name">User</span>
+                    <button id="logoutBtn" class="nav-btn logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+                <button id="openAuthBtn" class="nav-btn auth-btn"><i class="fas fa-user"></i> Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- DOCS SECTION -->
+        <section id="docs" class="hero-section active">
+            <div class="hero-text">
+                <h1>Smart Documents</h1>
+                <p>NIM-powered document generation with professional typography.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="input-group">
+                    <label>Document Topic</label>
+                    <textarea id="docInput"
+                        placeholder="What should we write about today? e.g. 'The impact of quantum computing on modern cryptography'"></textarea>
+                </div>
+
+                <button id="genDocBtn" class="primary-btn">
+                    <span>Generate Document</span>
+                    <div class="loader hidden"></div>
+                </button>
+            </div>
+        </section>
+
+        <!-- SLIDES SECTION -->
+        <section id="slides" class="hero-section">
+            <div class="hero-text">
+                <h1>AI Presentations</h1>
+                <p>Turn any topic into a professional Reveal.js slide deck in seconds.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="input-group">
+                    <label>Presentation Topic</label>
+                    <textarea id="pptInput" placeholder="Describe your presentation topic in detail..."></textarea>
+                </div>
+                <button id="genPptBtn" class="primary-btn">
+                    <span>Generate Reveal.js Deck</span>
+                    <div class="loader hidden"></div>
+                </button>
+            </div>
+        </section>
+
+        <!-- DIAGRAMS SECTION -->
+        <section id="diagrams" class="hero-section">
+            <div class="hero-text">
+                <h1>Visual Diagrams</h1>
+                <p>NIM-powered Mermaid.js code for complex abstractions.</p>
+            </div>
+
+            <div class="diagram-layout">
+                <div class="glass-card sidebar">
+                    <div class="input-group">
+                        <label>Diagram Topic</label>
+                        <textarea id="diagInput" placeholder="Describe the process..."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Diagram Type</label>
+                        <div class="diagram-type-grid">
+                            <div class="diag-type-card active" data-type="Flowchart">
+                                <i class="fas fa-sitemap"></i>
+                                <span>Flowchart</span>
+                            </div>
+                            <div class="diag-type-card" data-type="Timeline">
+                                <i class="fas fa-clock"></i>
+                                <span>Timeline</span>
+                            </div>
+                            <div class="diag-type-card" data-type="Sequence Diagram">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span>Sequence</span>
+                            </div>
+                            <div class="diag-type-card" data-type="Venn Diagram">
+                                <i class="fas fa-circle-nodes"></i>
+                                <span>Venn</span>
+                            </div>
+                            <div class="diag-type-card" data-type="Mindmap">
+                                <i class="fas fa-brain"></i>
+                                <span>Mental Map</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="genDiagBtn" class="primary-btn">Generate Diagram</button>
+                </div>
+
+                <div class="glass-card preview-area">
+                    <div id="mermaidOutput" class="mermaid-container">
+                        <div class="placeholder">Result will appear here...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTORY SECTION -->
+        <section id="history" class="hero-section">
+            <div class="hero-text">
+                <h1>Generation History</h1>
+                <p>Your past creations, all in one place.</p>
+            </div>
+
+            <div class="glass-card history-card">
+                <div class="history-toolbar">
+                    <div class="history-filters">
+                        <button class="filter-chip active" data-filter="all">All</button>
+                        <button class="filter-chip" data-filter="document"><i class="fas fa-file-alt"></i> Docs</button>
+                        <button class="filter-chip" data-filter="presentation"><i class="fas fa-tv"></i> Slides</button>
+                        <button class="filter-chip" data-filter="diagram"><i class="fas fa-diagram-project"></i> Diagrams</button>
+                    </div>
+                    <button id="refreshHistoryBtn" class="icon-btn" title="Refresh">
+                        <i class="fas fa-arrows-rotate"></i>
+                    </button>
+                </div>
+
+                <div id="historyList" class="history-list">
+                    <div class="history-empty">
+                        <i class="fas fa-hourglass-start"></i>
+                        <p>No generations yet. Create something awesome!</p>
+                    </div>
+                </div>
+
+                <div id="historyPagination" class="history-pagination hidden"></div>
+            </div>
+        </section>
+
+        <!-- Status Log Overlay -->
+        <div id="statusLog" class="status-log hidden">
+            <div class="log-content">
+                <div class="log-header">
+                    <i class="fas fa-robot"></i>
+                    <span>AI Engine Busy</span>
+                </div>
+                <div id="logMessages" class="log-messages"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Auth Modal -->
+    <div id="authOverlay" class="auth-overlay hidden">
+        <div class="auth-card glass-card">
+            <button id="closeAuth" class="close-auth-btn"><i class="fas fa-times"></i></button>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Sign In</button>
+                <button class="auth-tab" data-tab="register">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active">
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <div id="loginError" class="auth-error hidden"></div>
+                <button type="submit" class="primary-btn">Sign In</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form">
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" id="regName" placeholder="Your name" required>
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" placeholder="Min 6 characters" required>
+                </div>
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="regPasswordConfirm" placeholder="Repeat password" required>
+                </div>
+                <div id="registerError" class="auth-error hidden"></div>
+                <button type="submit" class="primary-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Presentation Viewer Overlay -->
+    <div id="presentationOverlay" class="presentation-overlay hidden">
+        <button id="closePresentation" class="close-overlay-btn"><i class="fas fa-times"></i></button>
+        <div id="revealContainer" class="reveal-container">
+            <!-- Reveal.js content will be injected here -->
+        </div>
+        <div class="overlay-controls">
+            <button id="downloadPdfBtn" class="secondary-btn" style="background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.4);"><i class="fas fa-file-pdf"></i> Save as PDF</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
