@@ -227,6 +227,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('revealViewer');
         const deck = new Reveal(container.querySelector('.reveal'), {
+            embedded: true,
             controls: false,
             progress: false,
             center: true,
