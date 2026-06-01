@@ -17,7 +17,14 @@ def get_user_id(request: Request) -> str:
     return uid
 
 def is_allowed(request: Request) -> bool:
-    return True
+    if is_admin(request):
+        return True
+    today = str(date.today())
+    uid = get_user_id(request)
+    if today not in usage_db:
+        return True
+    # Local rate-limit: maximum of 10 requests per day per device/IP to prevent spamming
+    return usage_db[today].get(uid, 0) < 10
 
 def record_usage(request: Request):
     if is_admin(request): return
